@@ -10,7 +10,7 @@ module.exports.register = async (req, res) => {
     const { fullname, email, password} = req.body;
     // User input validation
     // ...
-    
+    // User input validation in frontend
 
     const findByEmailUsers = await usersService.findUserByEmail(email);
     if(!findByEmailUsers){
