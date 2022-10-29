@@ -17,7 +17,7 @@ module.exports.register = async (req, res) => {
       await usersService.register(fullname, email, password);
       res.status(200).send('success');
     }else{
-      res.status(200).send('email has already been used');
+      res.status(409).send('email has already been used');
     }
     
   } catch (e) {
