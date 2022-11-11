@@ -9,7 +9,7 @@ const dotenv = require("dotenv");
 var app = require('../app');
 var debug = require('debug')('rquiz-api:server');
 var http = require('http');
-dotenv.config({ path: "./config.evn" });
+dotenv.config({ path: "./config.env" });
 
 /**
  * Get port from environment and store in Express.

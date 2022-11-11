@@ -2,10 +2,6 @@ const User = require('./usersModel');
 const bcrypt = require("bcrypt");
 const res = require('express/lib/response');
 
-exports.profile = (id) => {
-  return { id, name: "Mr X", email: "x@abc.xyz" }
-}
-
 exports.findUserByEmail = (email) => {
   return User.findOne({ email: email, }).lean();
 };
@@ -30,3 +26,13 @@ exports.register = async (fullname, email, password) => {
 
 
 };
+
+exports.verifyUser = async(email, password) =>{
+  const user = await this.findUserByEmail(email);
+  if(!user) return false;
+  if(await bcrypt.compare(password, user.password)){
+    return user;
+  }
+  return false;
+}
+

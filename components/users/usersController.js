@@ -1,8 +1,10 @@
 const usersService = require('./usersService');
-const User = require('./usersModel');
+const jwt = require('jsonwebtoken');
+const config = require('../../config');
 
 module.exports.profile = (req, res) => {
-  res.json(usersService.profile(1));
+  console.log(req.user )
+  res.json({ user: req.user });
 }
 
 module.exports.register = async (req, res) => {
@@ -24,3 +26,17 @@ module.exports.register = async (req, res) => {
     res.status(400).json({errorMessage: e.message ?? 'Unknown error'});
   }
 };
+
+module.exports.login = (req, res) => {
+  const {_id, email, fullname} = req.user;
+
+  
+  const accessToken = jwt.sign({id: _id, email, fullname}, config.JWT_SECRET, {expiresIn: '15m'});
+  res.json({
+    _id,
+    email,
+    fullname,
+    accessToken
+  });
+
+}
